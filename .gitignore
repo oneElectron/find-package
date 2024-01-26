@@ -1,0 +1,7 @@
+/target
+/.vscode
+/data
+
+*.txt
+*.filedb
+*.pmdb
