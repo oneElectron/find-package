@@ -1,0 +1,19 @@
+[package]
+name = "databases"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+find_common = { workspace = true }
+pacman_parser = { workspace = true }
+
+reqwest = { workspace = true }
+rand = { workspace = true }
+tokio = { workspace = true }
+flate2 = { workspace = true }
+sha2 = { workspace = true }
+tar = { workspace = true }
+serde_json = { workspace = true }

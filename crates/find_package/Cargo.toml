@@ -1,0 +1,16 @@
+[package]
+name = "find-package"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+find_core = { workspace = true }
+find_common = { workspace = true }
+
+clap = { workspace = true }
+reqwest = { workspace = true }
+tokio = { workspace = true }
+

@@ -1,0 +1,10 @@
+[package]
+name = "find_core"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+find-in-path = { workspace = true }

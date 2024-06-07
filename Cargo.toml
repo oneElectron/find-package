@@ -1,18 +1,35 @@
-[workspace] 
-members = ["databases", "find-core", "shell_handler"]
+[workspace]
+resolver = "2"
+members = ["crates/*"]
 
-[package]
-name = "find-package"
+[workspace.package]
 version = "0.1.0"
 edition = "2021"
+authors = ["oneElectron"]
+description = "A package for finding other packages"
+documentation = "https://docs.rs/find_package"
 
-[dependencies]
+[workspace.dependencies]
+find_common = { path = "crates/find_common" }
+find_core = { path = "crates/find_core"}
+find_db = { path = "crates/find_db" }
+pacman_parser = { path = "crates/pacman_parser" }
+
 clap = { version = "4.4.18", features = ["derive", "cargo"] }
-reqwest = { version = "0.11.23", features = ["rustls-tls"] }
+find-in-path = { version = "1.0.0" }
+flate2 = { version = "1.0.28" }
+rand =  { version = "0.8" }
+reqwest = { version = "0.12", features = ["rustls-tls"] }
+serde_json = { version = "1.0.116" }
+sha2 = { version = "0.10.8" }
+tar = { version = "0.4.40" }
 tokio = { version = "1.35.1", features = ["full"] }
-find-core = { path = "./find-core" }
+
+[workspace.lints.rust]
+missing_docs = "deny"
 
 [profile.release]
+opt-level = 2
 lto = true
 overflow-checks = true
 strip = true
