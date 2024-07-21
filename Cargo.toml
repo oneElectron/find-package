@@ -1,3 +1,49 @@
+[package]
+name = "find_package"
+version = "0.1.0"
+edition = "2021"
+authors = ["oneElectron"]
+description = "A package for finding other packages"
+documentation = "https://docs.rs/find_package"
+
+[dependencies]
+pacman = { workspace = true }
+clap = { workspace = true }
+tokio = { workspace = true, optional = true } 
+reqwest = { workspace = true, optional = true }
+flate2 = { workspace = true, optional = true }
+sha2 = { workspace = true, optional = true }
+rand = { workspace = true, optional = true }
+tar = { workspace = true, optional = true }
+
+
+[features]
+default = []
+package_getter = ["dep:tokio", "dep:reqwest", "dep:flate2", "dep:sha2", "dep:rand", "dep:tar"]
+
+[workspace.dependencies]
+find_core = { path = "crates/find_core" }
+pacman = { path = "crates/pacman" }
+
+clap = { version = "4.5", features = ["derive", "cargo"] }
+find-in-path = { version = "1.0" }
+flate2 = { version = "1.0" }
+rand =  { version = "0.8" }
+reqwest = { version = "0.12", features = ["rustls-tls"] }
+serde_json = { version = "1.0.117" }
+sha2 = { version = "0.10" }
+tar = { version = "0.4" }
+tokio = { version = "1.38", features = ["full"] }
+
+[profile.release]
+opt-level = 2
+lto = true
+overflow-checks = true
+strip = true
+
+[workspace.lints.rust]
+missing_docs = "allow"
+
 [workspace]
 resolver = "2"
 members = ["crates/*"]
@@ -8,28 +54,3 @@ edition = "2021"
 authors = ["oneElectron"]
 description = "A package for finding other packages"
 documentation = "https://docs.rs/find_package"
-
-[workspace.dependencies]
-find_common = { path = "crates/find_common" }
-find_core = { path = "crates/find_core"}
-find_db = { path = "crates/find_db" }
-pacman_parser = { path = "crates/pacman_parser" }
-
-clap = { version = "4.4.18", features = ["derive", "cargo"] }
-find-in-path = { version = "1.0.0" }
-flate2 = { version = "1.0.28" }
-rand =  { version = "0.8" }
-reqwest = { version = "0.12", features = ["rustls-tls"] }
-serde_json = { version = "1.0.116" }
-sha2 = { version = "0.10.8" }
-tar = { version = "0.4.40" }
-tokio = { version = "1.35.1", features = ["full"] }
-
-[workspace.lints.rust]
-missing_docs = "deny"
-
-[profile.release]
-opt-level = 2
-lto = true
-overflow-checks = true
-strip = true

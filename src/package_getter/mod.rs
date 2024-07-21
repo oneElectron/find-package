@@ -1,17 +1,14 @@
-#![feature(let_chains)]
-
-pub(crate) mod file_list;
-pub(crate) mod package_managers;
+mod file_list;
+mod package_managers;
 #[macro_use]
-pub(crate) mod macros;
+mod macros;
 
 use file_list::FileList;
 use package_managers::*;
 
-use find_common::Pkg;
+use crate::Package;
 
-#[tokio::main]
-async fn main() {
+async fn run() {
     let package_list = run_package_managers!(
         homebrew::homebrew_get_package_list,
         pacman::pacman_get_package_list,

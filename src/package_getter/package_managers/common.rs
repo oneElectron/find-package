@@ -1,4 +1,4 @@
-use find_common::PkgFile;
+use crate::PackageFile;
 
 use std::path::PathBuf;
 
@@ -27,10 +27,10 @@ fn get_random_folder_name() -> String {
     format!("{:x}", result)
 }
 
-pub(crate) fn guess_filetype_from_path(p: &str) -> find_common::PkgFileType {
+pub(crate) fn guess_filetype_from_path(p: &str) -> crate::PackageFileType {
     todo!();
 }
 
-pub(crate) fn filter_path_list(paths: Vec<String>) -> Vec<PkgFile> {
+pub(crate) fn filter_path_list(paths: Vec<String>) -> Vec<PackageFile> {
     todo!();
 }

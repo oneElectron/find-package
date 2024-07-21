@@ -1,5 +1,5 @@
 [package]
-name = "command-not-found"
+name = "command_not_found"
 version.workspace = true
 authors.workspace = true
 description.workspace = true
@@ -8,7 +8,6 @@ edition.workspace = true
 
 [dependencies]
 find_core = { workspace = true }
-
 find-in-path = { workspace = true }
 
 [features]

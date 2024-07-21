@@ -2,9 +2,6 @@ mod cli;
 use clap::Parser;
 use cli::{Cli, CliCommand};
 
-mod db;
-mod search;
-
 fn main() {
     let args = Cli::parse();
 

@@ -1,9 +1,0 @@
-[package]
-name = "pacman_parser"
-version.workspace = true
-edition.workspace = true
-authors.workspace = true
-description.workspace = true
-documentation.workspace = true
-
-[dependencies]

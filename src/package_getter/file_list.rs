@@ -63,8 +63,8 @@ impl FileList {
     }
 }
 
-impl From<Vec<crate::Pkg>> for FileList {
-    fn from(pkgs: Vec<crate::Pkg>) -> Self {
+impl From<Vec<crate::Package>> for FileList {
+    fn from(pkgs: Vec<crate::Package>) -> Self {
         let mut output = FileList::new();
 
         for pkg in pkgs {

@@ -1,10 +1,10 @@
 use super::common::*;
 
-use find_common::Pkg;
+use crate::Package;
 use flate2::read::GzDecoder;
 use reqwest::Client;
 
-pub(crate) async fn pacman_get_package_list() -> Vec<Pkg> {
+pub(crate) async fn pacman_get_package_list() -> Vec<Package> {
     println!("Pacman started...");
     let client = Client::builder().build().unwrap();
 
@@ -27,7 +27,7 @@ pub(crate) async fn pacman_get_package_list() -> Vec<Pkg> {
     output
 }
 
-async fn pacman_get_core(client: &Client) -> Vec<Pkg> {
+async fn pacman_get_core(client: &Client) -> Vec<Package> {
     let r = client
         .get("https://mirror.sunred.org/archlinux/core/os/x86_64/core.files.tar.gz")
         .send()
@@ -43,7 +43,7 @@ async fn pacman_get_core(client: &Client) -> Vec<Pkg> {
     parse_tar_archive(tar)
 }
 
-async fn pacman_get_extra(client: &Client) -> Vec<Pkg> {
+async fn pacman_get_extra(client: &Client) -> Vec<Package> {
     let r = client
         .get("https://mirror.sunred.org/archlinux/extra/os/x86_64/extra.files.tar.gz")
         .send()
@@ -59,7 +59,7 @@ async fn pacman_get_extra(client: &Client) -> Vec<Pkg> {
     parse_tar_archive(tar)
 }
 
-fn parse_tar_archive<R>(mut archive: tar::Archive<R>) -> Vec<Pkg>
+fn parse_tar_archive<R>(mut archive: tar::Archive<R>) -> Vec<Package>
 where
     R: std::io::Read,
 {
@@ -80,13 +80,13 @@ where
             if filename == "desc" {
                 let c = std::fs::read_to_string(file.path()).unwrap();
 
-                let r = pacman_parser::parse_pacman_desc_file(&c);
+                let r = pacman::parse_pacman_desc_file(&c);
 
                 name = r.get_key_value("NAME").unwrap().1[0].clone();
             } else if filename == "files" {
                 let c = std::fs::read_to_string(file.path()).unwrap();
 
-                let r = pacman_parser::parse_pacman_files_file(&c);
+                let r = pacman::parse_pacman_files_file(&c);
 
                 files = r;
             }
@@ -94,7 +94,7 @@ where
 
         let pkg_files = super::common::filter_path_list(files);
 
-        let p = Pkg {
+        let p = Package {
             name: name.to_string(),
             pm_name: "pacman",
             pkg_files,

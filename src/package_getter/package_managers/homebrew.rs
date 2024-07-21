@@ -1,9 +1,9 @@
-use find_common::{Pkg, PkgFile, PkgFileType};
+use crate::{Package, PackageFile, PackageFileType};
 
-pub(crate) async fn homebrew_get_package_list() -> Vec<Pkg> {
+pub(crate) async fn homebrew_get_package_list() -> Vec<Package> {
     println!("Homebrew started...");
     let client = reqwest::Client::builder().build().unwrap();
-    let mut output: Vec<Pkg> = vec![];
+    let mut output: Vec<Package> = vec![];
 
     let resp = client
         .get("https://raw.githubusercontent.com/Homebrew/homebrew-command-not-found/master/executables.txt")
@@ -24,16 +24,16 @@ pub(crate) async fn homebrew_get_package_list() -> Vec<Pkg> {
             let mut output = vec![];
 
             for name in s.1 {
-                output.push(PkgFile {
+                output.push(PackageFile {
                     name: name.to_owned(),
-                    file_type: PkgFileType::Binary,
+                    file_type: PackageFileType::Binary,
                 });
             }
 
             output
         };
 
-        output.push(Pkg {
+        output.push(Package {
             name: s.0.to_owned(),
             pkg_files,
             pm_name: "homebrew",
