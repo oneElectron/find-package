@@ -1,6 +1,4 @@
-use std::collections::HashMap;waw
-
-
+use std::collections::HashMap;
 
 pub fn parse_pacman_desc_file(contents: &str) -> HashMap<String, Vec<String>> {
     let mut output = HashMap::new();
